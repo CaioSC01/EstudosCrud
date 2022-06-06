@@ -7,7 +7,11 @@
 .active_group
 {
   margin-top: 30px;
-  margin-right: 300px;
-  margin-bottom: 30px;
+  margin-right: 20px;
+ margin-bottom: 20px;
   border-radius: 100px;
+}
+.combobox
+{
+  z-index: 1;
 }

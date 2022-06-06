@@ -30,7 +30,8 @@ const initialData: State = {
 
 export enum FormActions {
   setClassificação,
-  setStatus
+  setStatus,
+  setClient
 }
 
 //Criação do nosso contexto
