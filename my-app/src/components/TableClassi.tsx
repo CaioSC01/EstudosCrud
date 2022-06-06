@@ -1,10 +1,10 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import axios from 'axios'
-import { Dialog, Transition } from '@headlessui/react'
-import { XIcon, TrashIcon, PencilIcon } from '@heroicons/react/outline'
-// import { EditClient } from '../components/modals/ModalEdit/EditCliet'
-import { Modal } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
+import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
+import { Dialog, Transition } from "@headlessui/react";
+import { XIcon, TrashIcon, PencilIcon } from "@heroicons/react/outline";
+import { ModalEdit } from "../components/modals/ModalEdit/EditCliet";
+import { Modal } from "react-bootstrap";
+import { useForm } from "react-hook-form";
 
 // const groups = [
 //   {
@@ -21,56 +21,51 @@ import { useForm } from 'react-hook-form'
 //   }
 // ]
 function refreshPage() {
-  window.location.reload()
+  window.location.reload();
 }
 
 export const TableClassi = () => {
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
-  const [groups, setGroups] = useState<any[]>([])
-  // const { reset } = useForm({})
+  const [show, setShow] = useState(false);
+  const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const [groups, setGroups] = useState<any[]>([]);
+  const [id, setId] = useState<any[]>([]);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
 
   useEffect(() => {
     axios
-      .get('http://localhost:3006/client')
-      .then(response => {
-        setGroups(response.data)
+      .get("http://localhost:3006/client")
+      .then((response) => {
+        setGroups(response.data);
       })
       .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }, [])
+        console.log("DEU ERRADO");
+      });
+  }, []);
 
   const deleteForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
-    alert('Tem certeza que deseja exluir?')
+    e.preventDefault();
+    alert("Tem certeza que deseja exluir?");
     axios
       .delete(`http://localhost:3006/client/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
-  }
+      .then((res) => console.log("Deleted!!!", res))
+      .catch((err) => console.log(err));
+    refreshPage();
+  };
 
   const EditForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
-    axios
-      .get(`http://localhost:3006/client/${id}`)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }
+    e.preventDefault();
+    axios.get(`http://localhost:3006/client/${id}`).then((response) => {
+      setId(response.data);
+    });
+  };
 
   return (
     <div className="w-full">
@@ -108,7 +103,7 @@ export const TableClassi = () => {
                     </th>
                   </tr>
                 </thead>
-                {groups.map(group => {
+                {groups.map((group) => {
                   return (
                     <React.Fragment key={group.id}>
                       <tbody className="bg-white divide-y divide-gray-200">
@@ -130,9 +125,9 @@ export const TableClassi = () => {
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div
                               className={
-                                group.status === 'Ativo'
-                                  ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
-                                  : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
+                                group.status === "Ativo"
+                                  ? "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800"
+                                  : "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800"
                               }
                             >
                               {group.status}
@@ -141,7 +136,7 @@ export const TableClassi = () => {
 
                           <td className="content_td">
                             <button
-                              onClick={e => EditForm(group.id, e)}
+                              onClick={(e) => EditForm(group.id, e)}
                               className="text-gray-400 hover:text-gray-100  mx-2"
                             >
                               <span className="sr-only">Close panel</span>
@@ -154,7 +149,7 @@ export const TableClassi = () => {
 
                             <button
                               className="text-gray-400 hover:text-gray-100  ml-2"
-                              onClick={e => deleteForm(group.id, e)}
+                              onClick={(e) => deleteForm(group.id, e)}
                             >
                               <span className="sr-only">Close panel</span>
                               <TrashIcon
@@ -192,7 +187,7 @@ export const TableClassi = () => {
                                           <button
                                             type="button"
                                             className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            onClick={handleShow =>
+                                            onClick={(handleShow) =>
                                               setOpen(false)
                                             }
                                           >
@@ -227,14 +222,16 @@ export const TableClassi = () => {
                         </Dialog>
                       </Transition.Root>
                     </React.Fragment>
-                  )
+                  );
                 })}
 
                 <Modal show={show} onHide={handleClose}>
                   <Modal.Header>
                     <Modal.Title>Editar Classificação</Modal.Title>
                   </Modal.Header>
-                  <Modal.Body>{/* <EditClient /> */}</Modal.Body>
+                  <Modal.Body>
+                    <ModalEdit id={id}></ModalEdit>
+                  </Modal.Body>
                   <Modal.Footer>
                     <button
                       type="button"
@@ -251,5 +248,5 @@ export const TableClassi = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};

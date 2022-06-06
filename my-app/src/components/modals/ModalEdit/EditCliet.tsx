@@ -1,81 +1,74 @@
-// import React, { useEffect } from 'react'
-import { ChangeEvent } from 'react'
-// import axios from 'axios'
-// import { useForm, Controller } from 'react-hook-form'
-// import { useForm2, FormActions } from '../../../contexts/FormContext'
-// import { useParams } from 'react-router-dom'
-// import { convertCompilerOptionsFromJson } from 'typescript'
+import React from "react";
+import { ChangeEvent } from "react";
+import axios from "axios";
+import { useForm, Controller } from "react-hook-form";
+import { useForm2, FormActions } from "../../../contexts/FormContext";
 
-// function refreshPage() {
-//   window.location.reload()
-// }
+function refreshPage() {
+  window.location.reload();
+}
 
-// export const EditClient = () => {
-//   const { id } = useParams()
-//   const { state, dispatch } = useForm2()
-//   const { control, register, handleSubmit, reset } = useForm({
-//     // defaultValues
-//   })
+export const ModalEdit = (id: any) => {
+  const { state, dispatch } = useForm2();
+  const { control, register, handleSubmit } = useForm();
 
-//   useEffect(() => {
-//     axios.put(`http://localhost:3006/client/${id}`).then(response => {
-//       console.log(response.data)
-//     })
-//   })
+  const editForm = (data: any) => {
+    axios
+      .put(`http://localhost:3006/client/${id.id.id}`, data)
+      .then(() => {
+        console.log("Deu tudo certo", "aqui:", data);
+      })
+      .catch(() => {
+        console.log("DEU ERRADO\n\n", "aqui:", id.id.id);
+      });
+  };
 
-//   // const addForm = data =>
-//   //   axios
-//   //     .put(`http://localhost:3006/client/${id}`, data)
-//   //     .then(() => {
-//   //       console.log('Deu tudo certo')
-//   //     })
-//   //     .catch(() => {
-//   //       console.log('DEU ERRADO')
-//   //     })
+  const handleClassificacaoChange = (e: ChangeEvent<HTMLInputElement>) => {
+    dispatch({
+      type: FormActions.setClassificação,
+      payload: e.target.value,
+    });
+  };
+  console.log(id);
 
-//   return (
-//     <>
-//       <form onSubmit={handleSubmit(addForm)}>
-//         <Controller
-//           render={({ field }) => (
-//             <select {...field}>
-//               <option></option>
-//               <option>Ativo</option>
-//               <option>Inativo</option>
-//             </select>
-//           )}
-//           control={control}
-//           name="status"
-//         />
-//         <div>
-//           <label
-//             htmlFor="Classificação"
-//             className="block text-sm font-medium text-gray-700"
-//           >
-//             Classificação
-//           </label>
-//           <div className="mt-1">
-//             <input
-//               required
-//               type="text"
-//               {...register('classificacao')}
-//               value={state.classificação}
-//               onChange={handleClassificacaoChange}
-//               className="shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md"
-//             />
-//           </div>
-//         </div>
+  return (
+    <>
+      <form onSubmit={handleSubmit(editForm)}>
+        <Controller
+          render={({ field }) => (
+            <select {...field} className="active_content">
+              <option></option>
+              <option>Ativo</option>
+              <option>Inativo</option>
+            </select>
+          )}
+          control={control}
+          name="status"
+        />
+        <div className="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 modal_content">
+          <label
+            htmlFor="name"
+            className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
+          >
+            Classificação
+          </label>
+          <input
+            type="text"
+            id="classificacao"
+            className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+            {...register("classificacao")}
+            onChange={handleClassificacaoChange}
+            placeholder=""
+          />
+        </div>
 
-//         <button
-//           type="submit"
-//           className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-//         >
-//           Salvar
-//         </button>
-//       </form>
-//     </>
-//   )
-// }
-// function data(arg0: string, data: any) {
-//   throw new Error('Function not implemented.')
-// }
+        <button
+          type="submit"
+          className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#9a8e74] hover:bg-[#b5aa92] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+        >
+          Salvar
+        </button>
+      </form>
+    </>
+  );
+};
