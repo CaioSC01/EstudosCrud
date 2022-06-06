@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { Topnav } from './components/Topnav'
 import { ClassificCli } from './page/ClassifcCli'
+import { GroupCli } from './page/GroupCli'
 
 const Router = () => {
   return (
@@ -11,7 +12,9 @@ const Router = () => {
       <Navbar />
       <Topnav />
       <Routes>
+        <Route path="/" element={<div>oi</div>} />
         <Route path="/classific" element={<ClassificCli />} />
+        <Route path="/group" element={<GroupCli />} />
       </Routes>
     </BrowserRouter>
   )

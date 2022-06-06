@@ -7,7 +7,8 @@ import { createContext, useContext, useReducer, ReactNode } from 'react'
 
 //criação de types
 type State = {
-  classificação: string
+  groups: string
+  clientes: string
   status: string
 }
 type Action = {
@@ -23,47 +24,57 @@ type FormProviderProps = {
 }
 
 //dados iniciais
-const initialData: State = {
-  classificação: '',
+const initialDate: State = {
+  groups: '',
+  clientes: '',
   status: ''
 }
 
 export enum FormActions {
-  setClassificação,
+  setGroups,
+  setClient,
   setStatus
 }
 
 //Criação do nosso contexto
-const FormContext = createContext<ContextType | undefined>(undefined)
+const FormGroupContext = createContext<ContextType | undefined>(undefined)
 
 const formReducer = (state: State, action: Action) => {
   switch (action.type) {
-    case FormActions.setClassificação:
+    case FormActions.setGroups:
       //pego o meu dado como ele esta no momento
       //e troco pelo passo atual que estou mandando
       //retorna o novo state
-      return { ...state, classificação: action.payload }
+      return { ...state, groups: action.payload }
+    case FormActions.setClient:
+      //pego o meu dado como ele esta no momento
+      //e troco pelo passo atual que estou mandando
+      //retorna o novo state
+      return { ...state, clientes: action.payload }
     case FormActions.setStatus:
       return { ...state, status: action.payload }
+
     default:
       return state
   }
 }
 
-export const FormClientProvider = ({ children }: FormProviderProps) => {
+export const FormGroupProvider = ({ children }: FormProviderProps) => {
   //state: tenho os dados
   //dispatch: função que executa as minhas ações
-  const [state, dispatch] = useReducer(formReducer, initialData)
+  const [state, dispatch] = useReducer(formReducer, initialDate)
   const value = { state, dispatch }
 
   return (
     //componente que esta usando meu provider, ele cria o ambeinte e clc meu site inteiro dentro desse provider
-    <FormContext.Provider value={value}>{children}</FormContext.Provider>
+    <FormGroupContext.Provider value={value}>
+      {children}
+    </FormGroupContext.Provider>
   )
 }
 
-export const useForm2 = () => {
-  const context = useContext(FormContext)
+export const useForm3 = () => {
+  const context = useContext(FormGroupContext)
 
   //se o context esta indefinido, eu to usando meu hook fora do provider
   if (context === undefined) {

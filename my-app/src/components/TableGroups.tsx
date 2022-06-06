@@ -2,9 +2,6 @@ import React, { Fragment, useState, useEffect } from 'react'
 import axios from 'axios'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon, TrashIcon, PencilIcon } from '@heroicons/react/outline'
-// import { EditClient } from '../components/modals/ModalEdit/EditCliet'
-import { Modal } from 'react-bootstrap'
-import { useForm } from 'react-hook-form'
 
 // const groups = [
 //   {
@@ -24,18 +21,14 @@ function refreshPage() {
   window.location.reload()
 }
 
-export const TableClassi = () => {
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
+export const TableGroups = () => {
   const [groups, setGroups] = useState<any[]>([])
-  // const { reset } = useForm({})
 
   const [open, setOpen] = useState(false)
 
   useEffect(() => {
     axios
-      .get('http://localhost:3006/client')
+      .get('http://localhost:3006/Groups')
       .then(response => {
         setGroups(response.data)
       })
@@ -51,25 +44,10 @@ export const TableClassi = () => {
     e.preventDefault()
     alert('Tem certeza que deseja exluir?')
     axios
-      .delete(`http://localhost:3006/client/${id}`)
+      .delete(`http://localhost:3006/Groups/${id}`)
       .then(res => console.log('Deleted!!!', res))
       .catch(err => console.log(err))
     refreshPage()
-  }
-
-  const EditForm = (
-    id: any,
-    e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  ) => {
-    e.preventDefault()
-    axios
-      .get(`http://localhost:3006/client/${id}`)
-      .then(response => {
-        console.log(response.data)
-      })
-      .catch(() => {
-        console.log('DEU ERRADO')
-      })
   }
 
   return (
@@ -85,19 +63,25 @@ export const TableClassi = () => {
                       scope="col"
                       className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      ID
+                      Grupo
+                    </th>
+                    <th
+                      scope="col"
+                      className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
+                    >
+                      Clientes
                     </th>
                     <th
                       scope="col"
                       className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Classificação
+                      Status
                     </th>
                     <th
                       scope="col"
                       className="px-10 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Status
+                      Data
                     </th>
 
                     <th
@@ -117,14 +101,14 @@ export const TableClassi = () => {
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {group.id}
+                                  {group.groups}
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="font-bold text-sm text-gray-900">
-                              {group.classificacao}
+                              {group.clientes}
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
@@ -138,17 +122,21 @@ export const TableClassi = () => {
                               {group.status}
                             </div>
                           </td>
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <div className="font-bold text-sm text-gray-900">
+                              {group.data}
+                            </div>
+                          </td>
 
                           <td className="content_td">
                             <button
-                              onClick={e => EditForm(group.id, e)}
+                              // onClick={() => setEdit(true)}
                               className="text-gray-400 hover:text-gray-100  mx-2"
                             >
                               <span className="sr-only">Close panel</span>
                               <PencilIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
-                                onClick={handleShow}
                               />
                             </button>
 
@@ -192,9 +180,7 @@ export const TableClassi = () => {
                                           <button
                                             type="button"
                                             className="bg-white rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            onClick={handleShow =>
-                                              setOpen(false)
-                                            }
+                                            onClick={() => setOpen(false)}
                                           >
                                             <span className="sr-only">
                                               Close panel
@@ -229,22 +215,6 @@ export const TableClassi = () => {
                     </React.Fragment>
                   )
                 })}
-
-                <Modal show={show} onHide={handleClose}>
-                  <Modal.Header>
-                    <Modal.Title>Editar Classificação</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>{/* <EditClient /> */}</Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleClose}
-                    >
-                      Cancelar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
               </table>
             </div>
           </div>

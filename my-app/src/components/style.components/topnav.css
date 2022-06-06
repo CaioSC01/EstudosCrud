@@ -1,84 +1,58 @@
-.topnav {
-  padding: 1.25rem;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  height: var(--topnav-height);
-  box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
-  
+:root {
+  --header-height: 4.5rem;
+
+  /* colors */
+  --hue: 240;
+  /* HSL color mode */
+  --base-color: hsl(var(--hue) 36% 57%);
+  --base-color-second: hsl(var(--hue) 65% 88%);
+  --base-color-alt: hsl(var(--hue) 57% 53%);
+  --title-color: hsl(var(--hue) 41% 10%);
+  --text-color: hsl(0 0% 46%);
+  --text-color-light: hsl(0 0% 98%);
+  --body-color: hsl(0 0% 98%);
+
+  /* fonts */
+  --title-font-size: 1.875rem;
+  --subtitle-font-size: 1rem;
+
+  --title-font: 'Poppins', sans-serif;
+  --body-font: 'DM Sans', sans-serif;
 }
 
-.topnav__search {
-  position: relative;
-  height: 50px;
-  background-color: var(--main-bg);
+#header {
+  border-bottom: 1px solid #e4e4e4;
+  margin-bottom: 10rem;
   display: flex;
-  align-items: center;
-  box-shadow: var(--box-shadow-light);
-  border-radius: var(--border-radius);
-  overflow: hidden;
-  margin-left: 200px;
-}
 
-.topnav__search > input {
-  height: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: var(--body-color);
   width: 100%;
-  padding: 10px 60px 10px 20px;
-  font-size: 1rem;
-  border-radius: var(--border-radius);
-  color: var(--txt-color);
-  background-color: var(--main-bg);
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
 }
 
-.topnav__search > i {
-  font-size: 1.5rem;
-  position: absolute;
-  right: 20px;
+#header.scroll {
+  box-shadow: 0px 0px 12px rgba(0, 0, 0, 0.15);
 }
 
-.topnav__right {
-  display: flex;
-  align-items: center;
+/*====  LOGO ============================ */
+.logo {
+  font: 700 1.31rem var(--title-font);
+  color: var(--title-color);
+  margin-left:50%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
-.topnav__right-item ~ .topnav__right-item {
-  margin-left: 30px;
-  width: 4rem;
+.logo span {
+  color: var(--base-color);
 }
 
-.notification-item {
-  display: flex;
-  align-items: center;
-  padding: 1.25rem;
+.logo-alt span {
+  color: var(--body-color);
 }
 
-.notification-item:hover {
-  background-color: var(--second-bg);
-}
+/*====  NAVIGATION ============================ */
 
-.notification-item > i {
-  margin-right: 20px;
-  font-size: 1.5rem;
-}
-
-.topnav__right-user {
-  display: flex;
-  align-items: center;
-}
-
-.topnav__right-user__image {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-right: 10px;
-}
-
-.topnav__right-user__image > img {
-  width: 100%;
-}
-
-.topnav__right-user__name {
-  font-size: 1rem;
-  font-weight: 600;
-}

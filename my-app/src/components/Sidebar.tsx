@@ -17,7 +17,7 @@ export const Sidebar = [
   },
   {
     title: <span className="links_name">Grupos.Cli</span>,
-    path: '/GroupCli',
+    path: '/group',
     icon: <i className="bx bx-group"></i>,
     cName: 'nav-text',
     tName: <span className="tooltip">Grupos.Cli</span>
