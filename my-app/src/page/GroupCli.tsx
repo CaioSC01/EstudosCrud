@@ -45,7 +45,7 @@ export const GroupCli = () => {
                   <TableGroups />
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
-                      <Modal.Title>Adicionar Classificação</Modal.Title>
+                      <Modal.Title>Adicionar Grupo de Clientes</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                       <ModalGroup />

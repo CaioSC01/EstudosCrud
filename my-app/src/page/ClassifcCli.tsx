@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { PlusSmIcon } from '@heroicons/react/outline'
 import { Modal } from 'react-bootstrap'
 import { TableClassi } from '../components/TableClassi'
-import { ModalAdd } from '../components/modals/ModalAdd/ModalAddClient'
+import { ModalAdd } from '../components/modals/ModalAdd/ModalAddClassific'
 import './page.style/classific.css'
 
 export const ClassificCli = () => {

@@ -1,40 +1,51 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import axios from 'axios'
-import { Dialog, Transition } from '@headlessui/react'
-import { XIcon, TrashIcon, PencilIcon } from '@heroicons/react/outline'
+import React, { Fragment, useState, useEffect } from "react";
+import axios from "axios";
+import { Dialog, Transition } from "@headlessui/react";
+import {
+  XIcon,
+  TrashIcon,
+  PencilIcon,
+  ClipboardCheckIcon,
+} from "@heroicons/react/outline";
+import { Modal } from 'react-bootstrap'
+import { TableClient } from './TableClient';
 
 function refreshPage() {
-  window.location.reload()
+  window.location.reload();
 }
 
 export const TableGroups = () => {
-  const [groups, setGroups] = useState<any[]>([])
+  const [groups, setGroups] = useState<any[]>([]);
 
-  const [open, setOpen] = useState(false)
+  const [open, setOpen] = useState(false);
+
+  const [show, setShow] = useState(false)
+  const handleShow = () => setShow(true)
+  const handleCloseE = () => setShow(false)
 
   useEffect(() => {
     axios
-      .get('http://localhost:3006/Groups')
-      .then(response => {
-        setGroups(response.data)
+      .get("https://localhost:44328/api/grupo")
+      .then((response) => {
+        setGroups(response.data);
       })
       .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }, [])
+        console.log("DEU ERRADO");
+      });
+  }, []);
 
   const deleteForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
+    e.preventDefault();
 
     axios
-      .delete(`http://localhost:3006/Groups/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
-  }
+      .delete(`https://localhost:44328/api/grupo/${id}`)
+      .then((res) => console.log("Deleted!!!", res))
+      .catch((err) => console.log(err));
+    refreshPage();
+  };
 
   return (
     <div className="w-full">
@@ -62,7 +73,7 @@ export const TableGroups = () => {
                       scope="col"
                       className="px-10 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                     >
-                      Data
+                      CLIENTES
                     </th>
 
                     <th
@@ -73,16 +84,16 @@ export const TableGroups = () => {
                     </th>
                   </tr>
                 </thead>
-                {groups.map(group => {
+                {groups.map((group) => {
                   return (
-                    <React.Fragment key={group.id}>
+                    <React.Fragment key={group.ID}>
                       <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
                           <td className="px-1 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {group.groups}
+                                  {group.DS_Grupo}
                                 </div>
                               </div>
                             </div>
@@ -90,18 +101,29 @@ export const TableGroups = () => {
                           <td className="px-2.5 py-4 whitespace-nowrap">
                             <div
                               className={
-                                group.status === 'Ativo'
-                                  ? 'inline-flex items-center  py-0 rounded-md text-sm font-medium bg-green-100 text-green-800'
-                                  : 'inline-flex items-center py-0 rounded-md text-sm font-medium bg-red-100 text-red-800'
+                                group.Status === true
+                                  ? "inline-flex items-center  py-0 rounded-md text-sm font-medium bg-green-100 text-green-800"
+                                  : "inline-flex items-center py-0 rounded-md text-sm font-medium bg-red-100 text-red-800"
                               }
                             >
-                              {group.status}
+                              {group.Status === true ? "Ativo" : "Inativo"}
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="content_td">
                             <div className="font-bold text-sm text-gray-900">
-                              {group.data}
+														  <button
+                                //   onClick={e => EditForm(classific.ID, e)}
+                                className="text-gray-400 hover:text-gray-100  mx-2"
+                              >
+                                <ClipboardCheckIcon
+                                  className="h-6 w-6"
+                                  aria-hidden="true"
+                                  onClick={handleShow}
+                                />
+							 
+                              </button> 
                             </div>
+				
                           </td>
 
                           <td className="content_td">
@@ -118,7 +140,7 @@ export const TableGroups = () => {
 
                             <button
                               className="text-gray-400 hover:text-gray-100  ml-2"
-                              onClick={e => deleteForm(group.id, e)}
+                              onClick={(e) => deleteForm(group.ID, e)}
                             >
                               <span className="sr-only">Close panel</span>
                               <TrashIcon
@@ -189,13 +211,36 @@ export const TableGroups = () => {
                         </Dialog>
                       </Transition.Root>
                     </React.Fragment>
-                  )
+                  );
                 })}
               </table>
+			  {/* <Modal
+                  show={show}
+                  onHide={handleCloseE}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header>
+                    <Modal.Title>Adc cliente ao grupo</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+					<TableClient></TableClient>
+					alo
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      onClick={handleCloseE}
+                    >
+                      Cancelar
+                    </button>
+                  </Modal.Footer>
+                </Modal> */}
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
