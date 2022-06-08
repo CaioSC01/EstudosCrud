@@ -43,7 +43,12 @@ export const GroupCli = () => {
                   // ) : null}  */}
 
                   <TableGroups />
-                  <Modal show={show} onHide={handleClose}>
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                  >
                     <Modal.Header>
                       <Modal.Title>Adicionar Grupo de Clientes</Modal.Title>
                     </Modal.Header>

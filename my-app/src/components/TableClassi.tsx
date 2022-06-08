@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import {
-  TrashIcon,
-  PencilIcon,
-} from '@heroicons/react/outline'
+import { TrashIcon, PencilIcon } from '@heroicons/react/outline'
 import { ModalEdit } from './modals/ModalEdit/EditClassific'
 import { Modal } from 'react-bootstrap'
 
@@ -117,9 +114,7 @@ export const TableClassi = () => {
                                   : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
                               }
                             >
-                              {classific.Status === true
-                                  ? 'Ativo'
-                                  : 'Inativo'}
+                              {classific.Status === true ? 'Ativo' : 'Inativo'}
                             </div>
                           </td>
 
@@ -164,8 +159,19 @@ export const TableClassi = () => {
                           irreversivel.
                         </Modal.Body>
                         <Modal.Footer>
-                          <button onClick={handleCloseD}>Cancelar</button>
-                          <button onClick={e => deleteForm(classific.ID, e)}>
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={handleCloseD}
+                          >
+                            Cancelar
+                          </button>
+
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            onClick={e => deleteForm(classific.ID, e)}
+                          >
                             Deletar
                           </button>
                         </Modal.Footer>
