@@ -2,7 +2,8 @@ import React from 'react'
 import { ChangeEvent } from 'react'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
-import { useForm2, FormActions } from '../../../contexts/FormContext'
+import { useCPForm, FormActions } from '../../../contexts/FormCpContext'
+import { TableClient } from '../../TableClient'
 
 function refreshPage() {
   window.location.reload()
@@ -13,26 +14,9 @@ export const ModalEditCamp = (id: any) => {
   const { control, register, handleSubmit } = useForm()
 
   const editForm = (data: any) => {
+    console.log('AAAA:', id)
     axios
-      .put(`https://localhost:44328/api/campanha/${id.id['0']['ID']}`, data)
-      .then(() => {
-        console.log('Deu tudo certo', data)
-        refreshPage()
-      })
-      .catch(() => {
-        console.log('DEU ERRADO', data, id)
-      })
-  }
-
-  const handleCampChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: FormActions.setClassificação,
-      payload: e.target.value
-    })
-  }
-  const editForm = (data: any) => {
-    axios
-      .put(`https://localhost:44328/api/campanha/${id.id['0']['ID']}`, data)
+      .put(`https://localhost:44328/api/campanha/${id.id}`, data)
       .then(() => {
         console.log('Deu tudo certo', data)
         refreshPage()
@@ -76,14 +60,13 @@ export const ModalEditCamp = (id: any) => {
             htmlFor="name"
             className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
           >
-            Nome da Campanha
+            Data de criação
           </label>
           <input
-            type="text"
-            id="campanha"
+            type="date"
+            id="date"
             className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
-            {...register('DS_Grupo')}
-            onChange={handleCampChange}
+            {...register('DT_Criacao')}
             placeholder=""
           />
         </div>
@@ -92,17 +75,27 @@ export const ModalEditCamp = (id: any) => {
             htmlFor="name"
             className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
           >
-            Data alteração
+            Data de alteração
           </label>
           <input
-            type="datetime-local"
-            id="data"
+            type="date"
+            id="date"
             className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
             {...register('DT_Alteracao')}
-            onChange={handleCampChange}
             placeholder=""
           />
         </div>
+        <Controller
+          render={({ field }) => (
+            <select {...field} className="active_content">
+              <option>Fl_Removido</option>
+              <option value={'true'}>Ativo</option>
+              <option value={'false'}>Inativo</option>
+            </select>
+          )}
+          control={control}
+          name="Fl_Removido"
+        />
 
         <button
           type="submit"

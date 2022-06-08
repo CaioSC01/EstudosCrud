@@ -188,7 +188,7 @@ export const TableClassi = () => {
                           <Modal.Title>Editar Classificação</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          <ModalEdit id={id}></ModalEdit>
+                          <ModalEdit id={classific.ID}></ModalEdit>
                         </Modal.Body>
                         <Modal.Footer>
                           <button

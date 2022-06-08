@@ -56,7 +56,7 @@ export const TableClient = () => {
             <Combobox.Input
               className="w-full rounded-md border border-gray-300 bg-white py-2 pl-3 pr-10 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 sm:text-sm"
               //   onChange={(event) => setQuery(event.target.value)}
-              //   displayValue={(person: any) => person.name}
+              displayValue={(person: any) => person.name}
               {...register('DS_Grupo')}
             />
             <Combobox.Button
@@ -111,57 +111,6 @@ export const TableClient = () => {
             )}
           </div>
         </Combobox>
-      </form>
-      <form onSubmit={handleSubmit(addForm2)}>
-        <div className="w-full content_client">
-          <div className="flex flex-col content_client">
-            <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8 ">
-              <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
-                  <table className="min-w-full divide-y divide-gray-200">
-                    <thead className="bg-gray-10">
-                      <tr>
-                        <th
-                          scope="col"
-                          className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          ID
-                        </th>
-                        <th
-                          scope="col"
-                          className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                        >
-                          Clientes
-                        </th>
-                      </tr>
-                    </thead>
-                    {people.map(person => {
-                      return (
-                        <React.Fragment key={person.id}>
-                          <tbody className="bg-white divide-y divide-gray-200">
-                            <tr>
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="font-bold text-sm text-gray-900">
-                                  {person.id}
-                                </div>
-                              </td>
-
-                              <td className="px-6 py-4 whitespace-nowrap">
-                                <div className="font-bold text-sm text-gray-900">
-                                  {person.name}
-                                </div>
-                              </td>
-                            </tr>
-                          </tbody>
-                        </React.Fragment>
-                      )
-                    })}
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
       </form>
     </>
   )

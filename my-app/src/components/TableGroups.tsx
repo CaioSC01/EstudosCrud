@@ -171,38 +171,37 @@ export const TableGroups = () => {
                             <button
                               type="button"
                               className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                              onClick={e => deleteForm(groups.id, e)}
+                              onClick={e => deleteForm(groups.ID, e)}
                             >
                               Deletar
+                            </button>
+                          </Modal.Footer>
+                        </Modal>
+                        <Modal
+                          show={showE}
+                          onHide={handleCloseE}
+                          backdrop="static"
+                          keyboard={false}
+                        >
+                          <Modal.Header>
+                            <Modal.Title>Editar Grupo</Modal.Title>
+                          </Modal.Header>
+                          <Modal.Body>
+                            <ModalEditGroup id={groups.ID}></ModalEditGroup>
+                          </Modal.Body>
+                          <Modal.Footer>
+                            <button
+                              type="button"
+                              className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                              onClick={handleCloseE}
+                            >
+                              Cancelar
                             </button>
                           </Modal.Footer>
                         </Modal>
                       </React.Fragment>
                     )
                   })}
-
-                  <Modal
-                    show={showE}
-                    onHide={handleCloseE}
-                    backdrop="static"
-                    keyboard={false}
-                  >
-                    <Modal.Header>
-                      <Modal.Title>Editar groupsação</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                      <ModalEditGroup id={id}></ModalEditGroup>
-                    </Modal.Body>
-                    <Modal.Footer>
-                      <button
-                        type="button"
-                        className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                        onClick={handleCloseE}
-                      >
-                        Cancelar
-                      </button>
-                    </Modal.Footer>
-                  </Modal>
                 </table>
               </div>
             </div>

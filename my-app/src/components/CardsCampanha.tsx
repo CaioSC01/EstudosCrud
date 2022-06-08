@@ -41,15 +41,18 @@ export const CardsCampanha = () => {
       .catch(err => console.log(err))
     refreshPage()
   }
+
   const EditForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
+    console.log('aquioh;', id)
     e.preventDefault()
     axios.get(`https://localhost:44328/api/campanha/${id}`).then(response => {
       setId(response.data)
     })
   }
+
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
       {camp.map(camp => (
@@ -65,22 +68,21 @@ export const CardsCampanha = () => {
                 </h3>
                 <span
                   className={
-                    camp.Status === 'Ativo'
+                    camp.Fl_Ativo === true
                       ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
                       : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
                   }
                 >
-                  {camp.Status}
+                  {camp.Fl_Ativo === true ? 'Ativo' : 'Inativo'}
                 </span>
               </div>
             </div>
-            {/* {camp.DT_Criacao} */}
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
               <div className="w-0 flex-1 flex">
                 <button
-                  onClick={e => EditForm(camp.id, e)}
+                  onClick={e => EditForm(camp.ID, e)}
                   className="text-gray-400 hover:text-gray-100 px-10 mx-2"
                 >
                   <span className="sr-only">Close panel</span>
@@ -140,33 +142,33 @@ export const CardsCampanha = () => {
                     </button>
                   </Modal.Footer>
                 </Modal>
+                <Modal
+                  show={showE}
+                  onHide={handleCloseE}
+                  backdrop="static"
+                  keyboard={false}
+                >
+                  <Modal.Header>
+                    <Modal.Title>Editar Campanha</Modal.Title>
+                  </Modal.Header>
+                  <Modal.Body>
+                    <ModalEditCamp id={camp.ID}></ModalEditCamp>
+                  </Modal.Body>
+                  <Modal.Footer>
+                    <button
+                      type="button"
+                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      onClick={handleCloseE}
+                    >
+                      Cancelar
+                    </button>
+                  </Modal.Footer>
+                </Modal>
               </div>
             </div>
           </div>
         </li>
       ))}
-      <Modal
-        show={showE}
-        onHide={handleCloseE}
-        backdrop="static"
-        keyboard={false}
-      >
-        <Modal.Header>
-          <Modal.Title>Editar Campanha</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <ModalEditCamp id={id}></ModalEditCamp>
-        </Modal.Body>
-        <Modal.Footer>
-          <button
-            type="button"
-            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-            onClick={handleCloseE}
-          >
-            Cancelar
-          </button>
-        </Modal.Footer>
-      </Modal>
     </ul>
   )
 }
