@@ -15,10 +15,10 @@ export const ModalEditGroup = (id: any) => {
 
   const editForm = (data: any) => {
     axios
-      .put(`https://localhost:44328/api/grupo/${id.id['0']['ID']}`, data)
+      .put(`https://localhost:44328/api/grupo/${id.id["0"]["ID"]}`, data)
       .then(() => {
         console.log('Deu tudo certo', data)
-        refreshPage()
+		refreshPage()
       })
       .catch(() => {
         console.log('DEU ERRADO', data, id)
@@ -38,7 +38,7 @@ export const ModalEditGroup = (id: any) => {
         <Controller
           render={({ field }) => (
             <select {...field} className="active_content">
-              <option></option>
+              <option>Status</option>
               <option value={'true'}>Ativo</option>
               <option value={'false'}>Inativo</option>
             </select>

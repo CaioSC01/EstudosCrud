@@ -39,6 +39,7 @@ export const ModalAdd = () => {
           render={({ field }) => (
             <select {...field} className="active_content">
               <option>Status</option>
+
               <option value={'true'}>Ativo</option>
               <option value={'false'}>Inativo</option>
             </select>

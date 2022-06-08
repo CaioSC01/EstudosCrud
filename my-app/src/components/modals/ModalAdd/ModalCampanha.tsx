@@ -2,15 +2,14 @@ import React from 'react'
 import { ChangeEvent } from 'react'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
-import { useCPForm, FormActions } from '../../../contexts/FormCpContext'
 import './Style.Modal/modalClient.css'
+import { useCPForm } from '../../../contexts/FormCpContext'
 
 function refreshPage() {
   window.location.reload()
 }
 
 export const ModalCampanha = () => {
-  const { dispatch } = useCPForm()
   const { control, register, handleSubmit } = useForm()
 
   const addForm = (data: any) =>
@@ -24,13 +23,6 @@ export const ModalCampanha = () => {
         console.log(data)
         console.log(error)
       })
-
-  const handleCPNameChange = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch({
-      type: FormActions.setNameCP,
-      payload: e.target.value
-    })
-  }
 
   return (
     <>
@@ -59,10 +51,20 @@ export const ModalCampanha = () => {
             id="name_cp"
             className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
             {...register('Nome')}
-            onChange={handleCPNameChange}
             placeholder=""
           />
         </div>
+        <Controller
+          render={({ field }) => (
+            <select {...field} className="active_content">
+              <option>Fl_Ativo</option>
+              <option value={'true'}>Ativo</option>
+              <option value={'false'}>Inativo</option>
+            </select>
+          )}
+          control={control}
+          name="Fl_Ativo"
+        />
         <div className="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 modal_content">
           <label
             htmlFor="name"
@@ -78,6 +80,33 @@ export const ModalCampanha = () => {
             placeholder=""
           />
         </div>
+
+        <div className="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 modal_content">
+          <label
+            htmlFor="name"
+            className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
+          >
+            Data de alteração
+          </label>
+          <input
+            type="date"
+            id="date"
+            className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+            {...register('DT_Alteracao')}
+            placeholder=""
+          />
+        </div>
+        <Controller
+          render={({ field }) => (
+            <select {...field} className="active_content">
+              <option>Fl_Removido</option>
+              <option value={'true'}>Ativo</option>
+              <option value={'false'}>Inativo</option>
+            </select>
+          )}
+          control={control}
+          name="Fl_Removido"
+        />
 
         <button
           type="submit"

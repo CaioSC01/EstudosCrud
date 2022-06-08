@@ -87,6 +87,7 @@ export const TableClassi = () => {
                     </th>
                   </tr>
                 </thead>
+
                 {classific.map(classific => {
                   return (
                     <React.Fragment key={classific.DS_Classificacao}>
@@ -177,32 +178,31 @@ export const TableClassi = () => {
                           </button>
                         </Modal.Footer>
                       </Modal>
+                      <Modal
+                        show={showE}
+                        onHide={handleCloseE}
+                        backdrop="static"
+                        keyboard={false}
+                      >
+                        <Modal.Header>
+                          <Modal.Title>Editar Classificação</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <ModalEdit id={id}></ModalEdit>
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={handleCloseE}
+                          >
+                            Cancelar
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
                     </React.Fragment>
                   )
                 })}
-
-                <Modal
-                  show={showE}
-                  onHide={handleCloseE}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header>
-                    <Modal.Title>Editar Classificação</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModalEdit id={id}></ModalEdit>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleCloseE}
-                    >
-                      Cancelar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
               </table>
             </div>
           </div>

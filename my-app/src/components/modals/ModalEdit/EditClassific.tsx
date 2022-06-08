@@ -1,43 +1,43 @@
-import React from 'react'
-import { ChangeEvent } from 'react'
-import axios from 'axios'
-import { useForm, Controller } from 'react-hook-form'
-import { useForm2, FormActions } from '../../../contexts/FormContext'
+import React from "react";
+import { ChangeEvent } from "react";
+import axios from "axios";
+import { useForm, Controller } from "react-hook-form";
+import { useForm2, FormActions } from "../../../contexts/FormContext";
 
 function refreshPage() {
-  window.location.reload()
+  window.location.reload();
 }
 
 export const ModalEdit = (id: any) => {
-  const { state, dispatch } = useForm2()
-  const { control, register, handleSubmit } = useForm()
+  const { state, dispatch } = useForm2();
+  const { control, register, handleSubmit } = useForm();
 
   const editForm = (data: any) => {
     axios
       .put(`https://localhost:44328/api/classific/${id.id["0"]["ID"]}`, data)
       .then(() => {
-        console.log('Deu tudo certo', data)
-		refreshPage()
+        console.log("Deu tudo certo", data);
+        refreshPage();
       })
       .catch(() => {
-        console.log('DEU ERRADO', data, id)
-      })
-  }
+        console.log("DEU ERRADO", data, id);
+      });
+  };
 
   const handleClassificacaoChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: FormActions.setClassificação,
-      payload: e.target.value
-    })
-  }
+      payload: e.target.value,
+    });
+  };
 
   return (
     <>
-<form onSubmit={handleSubmit(editForm)}>
+      <form onSubmit={handleSubmit(editForm)}>
         <Controller
           render={({ field }) => (
             <select {...field} className="active_content">
-              <option></option>
+              <option>Status</option>
               <option value={"true"}>Ativo</option>
               <option value={"false"}>Inativo</option>
             </select>
@@ -56,7 +56,7 @@ export const ModalEdit = (id: any) => {
             type="text"
             id="classificacao"
             className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
-            {...register('DS_Classificacao')}
+            {...register("DS_Classificacao")}
             value={state.classificação}
             onChange={handleClassificacaoChange}
             placeholder=""
@@ -71,5 +71,5 @@ export const ModalEdit = (id: any) => {
         </button>
       </form>
     </>
-  )
-}
+  );
+};

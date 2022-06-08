@@ -60,7 +60,7 @@ export const CardsCampanha = () => {
           <div className="w-full flex items-center justify-between p-6 space-x-6">
             <div className="flex-1 truncate">
               <div className="flex items-center space-x-3">
-                <h3 className="text-gray-900 text-sm font-medium truncate">
+                <h3 className="text-sm font-medium text-gray-500 truncate">
                   {camp.Nome}
                 </h3>
                 <span
@@ -115,12 +115,12 @@ export const CardsCampanha = () => {
                 >
                   <Modal.Header closeButton>
                     <Modal.Title>
-                      Deletar <b>{camp.DS_Grupo}</b>
+                      Deletar <b>{camp.Nome}</b>
                     </Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
-                    Tem certeza que deseja deletar <b>{camp.DS_Grupo}</b> ? Essa
-                    ação é irreversivel.
+                    Tem certeza que deseja deletar
+                    <b> {camp.Nome}</b> ? Essa ação é irreversivel.
                   </Modal.Body>
                   <Modal.Footer>
                     <button
