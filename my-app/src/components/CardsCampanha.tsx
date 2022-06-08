@@ -1,23 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid'
 import axios from 'axios'
-import { Fragment } from 'react'
-import { Menu, Transition } from '@headlessui/react'
 
 function refreshPage() {
   window.location.reload()
 }
-function classNames(...classes: string[]) {
-  return classes.filter(Boolean).join(' ')
-}
 
 export const CardsCampanha = () => {
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
   const [groups, setGroups] = useState<any[]>([])
-  const [id, setId] = useState<any[]>([])
-  const [open, setOpen] = useState(false)
 
   useEffect(() => {
     axios
@@ -49,12 +39,11 @@ export const CardsCampanha = () => {
   ) => {
     e.preventDefault()
     axios.get(`http://localhost:3006/Campanha/${id}`).then(response => {
-      setId(response.data)
+      console.log(response.data)
     })
   }
   return (
     <ul
-      role="list"
       className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3"
     >
       {groups.map(groups => (
@@ -92,20 +81,19 @@ export const CardsCampanha = () => {
                   <PencilIcon
                     className="h-6 w-6"
                     aria-hidden="true"
-                    onClick={handleShow}
+                    
                   />
                 </button>
               </div>
               <div className="w-0 flex-1 flex">
                 <button
-                  onClick={e => EditForm(groups.id, e)}
                   className="text-gray-400 hover:text-gray-100 px-10 py-2 mx-2"
                 >
                   <span className="sr-only">Close panel</span>
                   <EyeIcon
                     className="h-6 w-6"
                     aria-hidden="true"
-                    onClick={handleShow}
+                    
                   />
                 </button>
               </div>

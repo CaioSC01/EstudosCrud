@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { ChangeEvent } from 'react'
 import axios from 'axios'
 import { Controller, useForm } from 'react-hook-form'
@@ -28,7 +28,6 @@ function refreshPage() {
 export const ModalGroup = () => {
   const { state, dispatch } = useForm3()
   const { control, register, handleSubmit } = useForm()
-  const [groups, setGroups] = useState<any[]>([])
   const [query, setQuery] = useState('')
   const [selectedPerson, setSelectedPerson] = useState()
 
@@ -38,32 +37,6 @@ export const ModalGroup = () => {
       : people.filter(person => {
           return person.name.toLowerCase().includes(query.toLowerCase())
         })
-
-  // const [open, setOpen] = useState(false)
-
-  useEffect(() => {
-    axios
-      .get('http://localhost:3006/Groups')
-      .then(response => {
-        setGroups(response.data)
-      })
-      .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }, [])
-
-  // const deleteForm = (
-  //   id: any,
-  //   e: React.MouseEvent<HTMLButtonElement, MouseEvent>
-  // ) => {
-  //   e.preventDefault()
-  //   alert('Tem certeza que deseja exluir?')
-  //   axios
-  //     .delete(`http://localhost:3006/Groups/${id}`)
-  //     .then(res => console.log('Deleted!!!', res))
-  //     .catch(err => console.log(err))
-  //   refreshPage()
-  // }
 
   const addForm = (data: any) =>
     axios
@@ -92,20 +65,6 @@ export const ModalGroup = () => {
       payload: e.target.value
     })
   }
-
-  // const handleDataChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   dispatch({
-  //     type: FormActions.setData,
-  //     payload: e.target.value
-  //   })
-  // }
-
-  // const handleStatusChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   dispatch({
-  //     type: FormActions.setStatus,
-  //     payload: e.target.value
-  //   })
-  // }
 
   return (
     <>

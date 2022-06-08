@@ -3,10 +3,9 @@ import axios from 'axios'
 import {
   TrashIcon,
   PencilIcon,
-  BookmarkAltIcon
 } from '@heroicons/react/outline'
 import { ModalEdit } from './modals/ModalEdit/EditCliet'
-import { Button, Modal } from 'react-bootstrap'
+import { Modal } from 'react-bootstrap'
 
 function refreshPage() {
   window.location.reload()
@@ -19,14 +18,14 @@ export const TableClassi = () => {
   const [showD, setShowD] = useState(false)
   const handleShowD = () => setShowD(true)
   const handleCloseD = () => setShowD(false)
-  const [groups, setGroups] = useState<any[]>([])
+  const [classifics, setClassific] = useState<any[]>([])
   const [id, setId] = useState<any[]>([])
 
   useEffect(() => {
     axios
-      .get('http://localhost:3006/client')
+      .get('https://localhost:44328/api/classific')
       .then(response => {
-        setGroups(response.data)
+        setClassific(response.data)
       })
       .catch(() => {
         console.log('DEU ERRADO')
@@ -91,40 +90,42 @@ export const TableClassi = () => {
                     </th>
                   </tr>
                 </thead>
-                {groups.map(group => {
+                {classifics.map(classific => {
                   return (
-                    <React.Fragment key={group.id}>
+                    <React.Fragment key={classific.ID}>
                       <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
                           <td className="px-2 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
-                                  {group.id}
+                                  {classific.ID}
                                 </div>
                               </div>
                             </div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <div className="font-bold text-sm text-gray-900">
-                              {group.classificacao}
+                              {classific.DS_Classificacao}
                             </div>
                           </td>
                           <td className="px-9 py-4 whitespace-nowrap">
                             <div
                               className={
-                                group.status === 'Ativo'
+                                classific.Status === 'true'
                                   ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
                                   : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
                               }
                             >
-                              {group.status}
+                              {classific.Status === 'true'
+                                  ? 'Ativo'
+                                  : 'Inativo'}
                             </div>
                           </td>
 
                           <td className="content_td">
                             <button
-                              onClick={e => EditForm(group.id, e)}
+                              onClick={e => EditForm(classific.id, e)}
                               className="text-gray-400 hover:text-gray-100  mx-2"
                             >
                               <span className="sr-only">Close panel</span>
@@ -154,17 +155,17 @@ export const TableClassi = () => {
                       >
                         <Modal.Header closeButton>
                           <Modal.Title>
-                            Deletar <b>{group.classificacao}</b>
+                            Deletar <b>{classific.classificacao}</b>
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                           Tem certeza que deseja deletar{' '}
-                          <b>{group.classificacao}</b> ? Essa ação é
+                          <b>{classific.classificacao}</b> ? Essa ação é
                           irreversivel.
                         </Modal.Body>
                         <Modal.Footer>
                           <button onClick={handleCloseD}>Cancelar</button>
-                          <button onClick={e => deleteForm(group.id, e)}>
+                          <button onClick={e => deleteForm(classific.id, e)}>
                             Deletar
                           </button>
                         </Modal.Footer>
