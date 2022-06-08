@@ -1,17 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { TrashIcon, PencilIcon } from '@heroicons/react/outline'
+import {
+  TrashIcon,
+  PencilIcon,
+  BookmarkAltIcon
+} from '@heroicons/react/outline'
 import { ModalEdit } from './modals/ModalEdit/EditCliet'
-import { Modal } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 
 function refreshPage() {
   window.location.reload()
 }
 
 export const TableClassi = () => {
-  const [show, setShow] = useState(false)
-  const handleShow = () => setShow(true)
-  const handleClose = () => setShow(false)
+  const [showE, setShowE] = useState(false)
+  const handleShowE = () => setShowE(true)
+  const handleCloseE = () => setShowE(false)
+  const [showD, setShowD] = useState(false)
+  const handleShowD = () => setShowD(true)
+  const handleCloseD = () => setShowD(false)
   const [groups, setGroups] = useState<any[]>([])
   const [id, setId] = useState<any[]>([])
 
@@ -31,7 +38,6 @@ export const TableClassi = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault()
-    alert('Tem certeza que deseja exluir?')
     axios
       .delete(`http://localhost:3006/client/${id}`)
       .then(res => console.log('Deleted!!!', res))
@@ -125,28 +131,54 @@ export const TableClassi = () => {
                               <PencilIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
-                                onClick={handleShow}
+                                onClick={handleShowE}
                               />
                             </button>
 
-                            <button
-                              className="text-gray-400 hover:text-gray-100  ml-2"
-                              onClick={e => deleteForm(group.id, e)}
-                            >
+                            <button className="text-gray-400 hover:text-gray-100  ml-2">
                               <span className="sr-only">Close panel</span>
                               <TrashIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
+                                onClick={handleShowD}
                               />
                             </button>
                           </td>
                         </tr>
                       </tbody>
+                      <Modal
+                        show={showD}
+                        onHide={handleCloseD}
+                        backdrop="static"
+                        keyboard={false}
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title>
+                            Deletar <b>{group.classificacao}</b>
+                          </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          Tem certeza que deseja deletar{' '}
+                          <b>{group.classificacao}</b> ? Essa ação é
+                          irreversivel.
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button onClick={handleCloseD}>Cancelar</button>
+                          <button onClick={e => deleteForm(group.id, e)}>
+                            Deletar
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
                     </React.Fragment>
                   )
                 })}
 
-                <Modal show={show} onHide={handleClose}>
+                <Modal
+                  show={showE}
+                  onHide={handleCloseE}
+                  backdrop="static"
+                  keyboard={false}
+                >
                   <Modal.Header>
                     <Modal.Title>Editar Classificação</Modal.Title>
                   </Modal.Header>
@@ -157,7 +189,7 @@ export const TableClassi = () => {
                     <button
                       type="button"
                       className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleClose}
+                      onClick={handleCloseE}
                     >
                       Cancelar
                     </button>

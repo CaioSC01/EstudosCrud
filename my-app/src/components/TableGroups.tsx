@@ -3,20 +3,6 @@ import axios from 'axios'
 import { Dialog, Transition } from '@headlessui/react'
 import { XIcon, TrashIcon, PencilIcon } from '@heroicons/react/outline'
 
-// const groups = [
-//   {
-//     id: 1,
-//     classificacao: 'Revenda +',
-//     status: 'Ativo',
-//     description: 'Team of Developer ..'
-//   },
-//   {
-//     id: 2,
-//     classificacao: 'Developers',
-//     status: 'Inativo',
-//     description: 'Team of Developer ..'
-//   }
-// ]
 function refreshPage() {
   window.location.reload()
 }
@@ -42,7 +28,7 @@ export const TableGroups = () => {
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault()
-    alert('Tem certeza que deseja exluir?')
+
     axios
       .delete(`http://localhost:3006/Groups/${id}`)
       .then(res => console.log('Deleted!!!', res))

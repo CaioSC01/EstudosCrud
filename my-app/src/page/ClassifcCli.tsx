@@ -35,7 +35,12 @@ export const ClassificCli = () => {
                   </div>
                   {/* Começando Modal */}
                   <TableClassi />
-                  <Modal show={show} onHide={handleClose}>
+                  <Modal
+                    show={show}
+                    onHide={handleClose}
+                    backdrop="static"
+                    keyboard={false}
+                  >
                     <Modal.Header>
                       <Modal.Title>Adicionar Classificação</Modal.Title>
                     </Modal.Header>
