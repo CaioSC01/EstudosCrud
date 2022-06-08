@@ -1,0 +1,41 @@
+{
+  "Client": [
+    {
+      "classificacao": "Revenda+",
+      "status": "Ativo",
+      "id": 1
+    },
+    {
+      "classificacao": "Parceiraço",
+      "status": "Ativo",
+      "id": 2
+    },
+    {
+      "classificacao": "Distribuidor",
+      "status": "Ativo",
+      "id": 3
+    }
+  ],
+  "Groups": [
+    {
+      "groups": "aaa",
+      "data": "2022-06-07",
+      "status": "Ativo",
+      "id": 1
+    },
+    {
+      "groups": "Navigator",
+      "data": "2022-06-08",
+      "status": "Ativo",
+      "id": 2
+    }
+  ],
+  "Campanha": [
+    {
+      "name": "Caio Silva",
+      "data": "2022-06-07",
+      "status": "Inativo",
+      "id": 1
+    }
+  ]
+}

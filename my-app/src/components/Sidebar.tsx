@@ -23,11 +23,11 @@ export const Sidebar = [
     tName: <span className="tooltip">Grupos.Cli</span>
   },
   {
-    title: <span className="links_name">Analise</span>,
-    path: '/GroupCli',
+    title: <span className="links_name">Campanha</span>,
+    path: '/campanha',
     icon: <i className="bx bx-pie-chart-alt-2"></i>,
     cName: 'nav-text',
-    tName: <span className="tooltip">Analise</span>
+    tName: <span className="tooltip">Campanha</span>
   },
   {
     title: 'Configurações',

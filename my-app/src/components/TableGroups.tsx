@@ -54,7 +54,7 @@ export const TableGroups = () => {
     <div className="w-full">
       <div className="flex flex-col">
         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
+          <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-10">
             <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-10">
@@ -65,12 +65,7 @@ export const TableGroups = () => {
                     >
                       Grupo
                     </th>
-                    <th
-                      scope="col"
-                      className="px-8 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                    >
-                      Clientes
-                    </th>
+
                     <th
                       scope="col"
                       className="px-2 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
@@ -86,7 +81,7 @@ export const TableGroups = () => {
 
                     <th
                       scope="col"
-                      className="px-15 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider content_action"
+                      className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider content_action"
                     >
                       Ações
                     </th>
@@ -97,7 +92,7 @@ export const TableGroups = () => {
                     <React.Fragment key={group.id}>
                       <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-1 py-4 whitespace-nowrap">
                             <div className="flex items-center">
                               <div className="ml-4">
                                 <div className="text-sm font-medium text-gray-900">
@@ -106,17 +101,12 @@ export const TableGroups = () => {
                               </div>
                             </div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
-                            <div className="font-bold text-sm text-gray-900">
-                              {group.clientes}
-                            </div>
-                          </td>
-                          <td className="px-6 py-4 whitespace-nowrap">
+                          <td className="px-2.5 py-4 whitespace-nowrap">
                             <div
                               className={
                                 group.status === 'Ativo'
-                                  ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
-                                  : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
+                                  ? 'inline-flex items-center  py-0 rounded-md text-sm font-medium bg-green-100 text-green-800'
+                                  : 'inline-flex items-center py-0 rounded-md text-sm font-medium bg-red-100 text-red-800'
                               }
                             >
                               {group.status}

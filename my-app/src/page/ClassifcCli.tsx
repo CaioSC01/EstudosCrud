@@ -1,10 +1,9 @@
+import { useState } from 'react'
 import { PlusSmIcon } from '@heroicons/react/outline'
 import { Modal } from 'react-bootstrap'
 import { TableClassi } from '../components/TableClassi'
 import { ModalAdd } from '../components/modals/ModalAdd/ModalAddClient'
-// import Form from './Form'
 import './page.style/classific.css'
-import { useState } from 'react'
 
 export const ClassificCli = () => {
   const [show, setShow] = useState(false)
@@ -29,19 +28,12 @@ export const ClassificCli = () => {
                       type="button"
                       className="flex bg-[#9a8e74] p-1 rounded-full items-center justify-center text-white hover:bg-[#b5aa92] focus:outline-none  "
                       onClick={handleShow}
-                      // onClick={() => setOpen(true)}
                     >
                       <PlusSmIcon className="h-6 w-6" aria-hidden="true" />
-                      <span className="sr-only">Add arquivo</span>
+                      <span className="sr-only">Add Classific</span>
                     </button>
                   </div>
-                  {/* {open ? (
-                  //   <Form
-                  //     show={open}
-                  //     closeButton={() => setOpen(false)}
-                  //   />
-                  // ) : null}  */}
-
+                  {/* Começando Modal */}
                   <TableClassi />
                   <Modal show={show} onHide={handleClose}>
                     <Modal.Header>
