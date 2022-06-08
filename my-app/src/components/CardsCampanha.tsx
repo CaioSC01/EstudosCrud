@@ -1,58 +1,58 @@
-import React, { useEffect, useState } from 'react'
-import { EyeIcon, PencilIcon, TrashIcon } from '@heroicons/react/solid'
-import axios from 'axios'
-import { Modal } from 'react-bootstrap'
-import { ModalEditCamp } from './modals/ModalEdit/EditCamp'
+import React, { useEffect, useState } from "react";
+import { EyeIcon, PencilIcon, TrashIcon } from "@heroicons/react/solid";
+import axios from "axios";
+import { Modal } from "react-bootstrap";
+import { ModalEditCamp } from "./modals/ModalEdit/EditCamp";
 
 function refreshPage() {
-  window.location.reload()
+  window.location.reload();
 }
 
 export const CardsCampanha = () => {
-  const [showE, setShowE] = useState(false)
-  const handleShowE = () => setShowE(true)
-  const handleCloseE = () => setShowE(false)
-  const [showD, setShowD] = useState(false)
-  const handleShowD = () => setShowD(true)
-  const handleCloseD = () => setShowD(false)
-  const [camp, setCamp] = useState<any[]>([])
-  const [id, setId] = useState<any[]>([])
+  const [showE, setShowE] = useState(false);
+  const handleShowE = () => setShowE(true);
+  const handleCloseE = () => setShowE(false);
+  const [showD, setShowD] = useState(false);
+  const handleShowD = () => setShowD(true);
+  const handleCloseD = () => setShowD(false);
+  const [camp, setCamp] = useState<any[]>([]);
+  const [id, setId] = useState<any[]>([]);
 
   useEffect(() => {
     axios
-      .get('https://localhost:44328/api/campanha')
-      .then(response => {
-        setCamp(response.data)
+      .get("https://localhost:44328/api/campanha")
+      .then((response) => {
+        setCamp(response.data);
       })
       .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }, [])
+        console.log("DEU ERRADO");
+      });
+  }, []);
 
   const deleteForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
+    e.preventDefault();
 
     axios
       .delete(`https://localhost:44328/api/campanha/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
-  }
+      .then((res) => console.log("Deleted!!!", res))
+      .catch((err) => console.log(err));
+    refreshPage();
+  };
   const EditForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
-    axios.get(`https://localhost:44328/api/campanha/${id}`).then(response => {
-      setId(response.data)
-    })
-  }
+    e.preventDefault();
+    axios.get(`https://localhost:44328/api/campanha/${id}`).then((response) => {
+      setId(response.data);
+    });
+  };
   return (
     <ul className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      {camp.map(camp => (
+      {camp.map((camp) => (
         <li
           key={camp.Nome}
           className="col-span-1 bg-white rounded-lg shadow divide-y divide-gray-200"
@@ -60,27 +60,26 @@ export const CardsCampanha = () => {
           <div className="w-full flex items-center justify-between p-6 space-x-6">
             <div className="flex-1 truncate">
               <div className="flex items-center space-x-3">
-                <h3 className="text-gray-900 text-sm font-medium truncate">
+                <h3 className="text-sm font-medium text-gray-500 truncate">
                   {camp.Nome}
                 </h3>
                 <span
                   className={
-                    camp.Fl_Ativo === 'Ativo'
-                      ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
-                      : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
+                    camp.Fl_Ativo === true
+                      ? "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800"
+                      : "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800"
                   }
                 >
-                  {camp.Fl_Ativo}
+                  {camp.Fl_Ativo === true ? "Ativo" : "Inativo"}
                 </span>
               </div>
             </div>
-            {camp.DT_Criacao}
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">
               <div className="w-0 flex-1 flex">
                 <button
-                  onClick={e => EditForm(camp.id, e)}
+                  onClick={(e) => EditForm(camp.id, e)}
                   className="text-gray-400 hover:text-gray-100 px-10 mx-2"
                 >
                   <span className="sr-only">Close panel</span>
@@ -107,39 +106,40 @@ export const CardsCampanha = () => {
                     onClick={handleShowD}
                   />
                 </button>
-                <Modal
-                  show={showD}
-                  onHide={handleCloseD}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>
-                      Deletar <b>{camp.DS_Grupo}</b>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Tem certeza que deseja deletar <b>{camp.DS_Grupo}</b> ? Essa
-                    ação é irreversivel.
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleCloseD}
-                    >
-                      Cancelar
-                    </button>
+				<Modal
+                        show={showD}
+                        onHide={handleCloseD}
+                        backdrop="static"
+                        keyboard={false}
+                      >
+                        <Modal.Header closeButton>
+                          <Modal.Title>
+                            Deletar <b>{camp.Nome}</b>
+                          </Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          Tem certeza que deseja deletar 
+                          <b> {camp.Nome}</b> ? Essa ação é
+                          irreversivel.
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={handleCloseD}
+                          >
+                            Cancelar
+                          </button>
 
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                      onClick={e => deleteForm(camp.ID, e)}
-                    >
-                      Deletar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
+                            onClick={(e) => deleteForm(camp.ID, e)}
+                          >
+                            Deletar
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
               </div>
             </div>
           </div>
@@ -168,5 +168,5 @@ export const CardsCampanha = () => {
         </Modal.Footer>
       </Modal>
     </ul>
-  )
-}
+  );
+};

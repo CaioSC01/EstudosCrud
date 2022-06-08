@@ -1,55 +1,57 @@
-import React, { useState, useEffect } from 'react'
-import axios from 'axios'
-import { TrashIcon, PencilIcon } from '@heroicons/react/outline'
-import { ModalEdit } from './modals/ModalEdit/EditClassific'
-import { Modal } from 'react-bootstrap'
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import { TrashIcon, PencilIcon } from "@heroicons/react/outline";
+import { ModalEdit } from "./modals/ModalEdit/EditClassific";
+import { Modal } from "react-bootstrap";
 
 function refreshPage() {
-  window.location.reload()
+  window.location.reload();
 }
 
 export const TableClassi = () => {
-  const [showE, setShowE] = useState(false)
-  const handleShowE = () => setShowE(true)
-  const handleCloseE = () => setShowE(false)
-  const [showD, setShowD] = useState(false)
-  const handleShowD = () => setShowD(true)
-  const handleCloseD = () => setShowD(false)
-  const [classifics, setClassific] = useState<any[]>([])
-  const [id, setId] = useState<any[]>([])
+  const [showE, setShowE] = useState(false);
+  const handleShowE = () => setShowE(true);
+  const handleCloseE = () => setShowE(false);
+  const [showD, setShowD] = useState(false);
+  const handleShowD = () => setShowD(true);
+  const handleCloseD = () => setShowD(false);
+  const [classifics, setClassific] = useState<any[]>([]);
+  const [id, setId] = useState<any[]>([]);
 
   useEffect(() => {
     axios
-      .get('https://localhost:44328/api/classific')
-      .then(response => {
-        setClassific(response.data)
+      .get("https://localhost:44328/api/classific")
+      .then((response) => {
+        setClassific(response.data);
       })
       .catch(() => {
-        console.log('DEU ERRADO')
-      })
-  }, [])
+        console.log("DEU ERRADO");
+      });
+  }, []);
 
   const deleteForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
+    e.preventDefault();
     axios
       .delete(`https://localhost:44328/api/classific/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
-  }
+      .then((res) => console.log("Deleted!!!", res))
+      .catch((err) => console.log(err));
+	  refreshPage()
+  };
 
   const EditForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
-    e.preventDefault()
-    axios.get(`https://localhost:44328/api/classific/${id}`).then(response => {
-      setId(response.data)
-    })
-  }
+    e.preventDefault();
+    axios
+      .get(`https://localhost:44328/api/classific/${id}`)
+      .then((response) => {
+        setId(response.data);
+      });
+  };
 
   return (
     <div className="w-full">
@@ -87,7 +89,7 @@ export const TableClassi = () => {
                     </th>
                   </tr>
                 </thead>
-                {classifics.map(classific => {
+                {classifics.map((classific) => {
                   return (
                     <React.Fragment key={classific.ID}>
                       <tbody className="bg-white divide-y divide-gray-200">
@@ -110,17 +112,17 @@ export const TableClassi = () => {
                             <div
                               className={
                                 classific.Status === true
-                                  ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
-                                  : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
+                                  ? "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800"
+                                  : "inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800"
                               }
                             >
-                              {classific.Status === true ? 'Ativo' : 'Inativo'}
+                              {classific.Status === true ? "Ativo" : "Inativo"}
                             </div>
                           </td>
 
                           <td className="content_td">
                             <button
-                              onClick={e => EditForm(classific.ID, e)}
+                              onClick={(e) => EditForm(classific.ID, e)}
                               className="text-gray-400 hover:text-gray-100  mx-2"
                             >
                               <span className="sr-only">Close panel</span>
@@ -131,7 +133,9 @@ export const TableClassi = () => {
                               />
                             </button>
 
-                            <button className="text-gray-400 hover:text-gray-100  ml-2">
+                            <button
+                              className="text-gray-400 hover:text-gray-100  ml-2"
+                            >
                               <span className="sr-only">Close panel</span>
                               <TrashIcon
                                 className="h-6 w-6"
@@ -154,7 +158,7 @@ export const TableClassi = () => {
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          Tem certeza que deseja deletar{' '}
+                          Tem certeza que deseja deletar{" "}
                           <b>{classific.DS_Classificacao}</b> ? Essa ação é
                           irreversivel.
                         </Modal.Body>
@@ -170,43 +174,42 @@ export const TableClassi = () => {
                           <button
                             type="button"
                             className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                            onClick={e => deleteForm(classific.ID, e)}
+                            onClick={(e) => deleteForm(classific.ID, e)}
                           >
                             Deletar
                           </button>
                         </Modal.Footer>
                       </Modal>
+                      <Modal
+                        show={showE}
+                        onHide={handleCloseE}
+                        backdrop="static"
+                        keyboard={false}
+                      >
+                        <Modal.Header>
+                          <Modal.Title>Editar Classificação</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                          <ModalEdit id={id}></ModalEdit>
+                        </Modal.Body>
+                        <Modal.Footer>
+                          <button
+                            type="button"
+                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                            onClick={handleCloseE}
+                          >
+                            Cancelar
+                          </button>
+                        </Modal.Footer>
+                      </Modal>
                     </React.Fragment>
-                  )
+                  );
                 })}
-
-                <Modal
-                  show={showE}
-                  onHide={handleCloseE}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header>
-                    <Modal.Title>Editar Classificação</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModalEdit id={id}></ModalEdit>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleCloseE}
-                    >
-                      Cancelar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
               </table>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
