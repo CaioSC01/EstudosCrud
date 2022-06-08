@@ -80,12 +80,6 @@ export const TableGroups = () => {
                       >
                         Status
                       </th>
-                      <th
-                        scope="col"
-                        className="px-10 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                      >
-                        Data
-                      </th>
 
                       <th
                         scope="col"
@@ -97,7 +91,7 @@ export const TableGroups = () => {
                   </thead>
                   {groups.map(groups => {
                     return (
-                      <React.Fragment key={groups.ID}>
+                      <React.Fragment key={groups.id}>
                         <tbody className="bg-white divide-y divide-gray-200">
                           <tr>
                             <td className="px-2 py-4 whitespace-nowrap">
@@ -125,11 +119,10 @@ export const TableGroups = () => {
                                 {groups.Status === true ? 'Ativo' : 'Inativo'}
                               </div>
                             </td>
-                            <td className="content_td">{groups.data}</td>
 
                             <td className="content_td">
                               <button
-                                onClick={e => EditForm(groups.ID, e)}
+                                onClick={e => EditForm(groups.id, e)}
                                 className="text-gray-400 hover:text-gray-100  mx-2"
                               >
                                 <span className="sr-only">Close panel</span>
@@ -178,7 +171,7 @@ export const TableGroups = () => {
                             <button
                               type="button"
                               className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                              onClick={e => deleteForm(groups.ID, e)}
+                              onClick={e => deleteForm(groups.id, e)}
                             >
                               Deletar
                             </button>

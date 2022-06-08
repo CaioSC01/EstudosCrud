@@ -15,7 +15,7 @@ export const TableClassi = () => {
   const [showD, setShowD] = useState(false)
   const handleShowD = () => setShowD(true)
   const handleCloseD = () => setShowD(false)
-  const [classifics, setClassific] = useState<any[]>([])
+  const [classific, setClassific] = useState<any[]>([])
   const [id, setId] = useState<any[]>([])
 
   useEffect(() => {
@@ -87,9 +87,9 @@ export const TableClassi = () => {
                     </th>
                   </tr>
                 </thead>
-                {classifics.map(classific => {
+                {classific.map(classific => {
                   return (
-                    <React.Fragment key={classific.ID}>
+                    <React.Fragment key={classific.DS_Classificacao}>
                       <tbody className="bg-white divide-y divide-gray-200">
                         <tr>
                           <td className="px-2 py-4 whitespace-nowrap">
@@ -137,6 +137,7 @@ export const TableClassi = () => {
                                 className="h-6 w-6"
                                 aria-hidden="true"
                                 onClick={handleShowD}
+                                // values={classific.DS_Classificacao}
                               />
                             </button>
                           </td>
@@ -148,14 +149,14 @@ export const TableClassi = () => {
                         backdrop="static"
                         keyboard={false}
                       >
-                        <Modal.Header closeButton>
+                        <Modal.Header>
                           <Modal.Title>
                             Deletar <b>{classific.DS_Classificacao}</b>
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
-                          Tem certeza que deseja deletar{' '}
-                          <b>{classific.DS_Classificacao}</b> ? Essa ação é
+                          Tem certeza que deseja deletar
+                          <b> {classific.DS_Classificacao}</b> ? Essa ação é
                           irreversivel.
                         </Modal.Body>
                         <Modal.Footer>

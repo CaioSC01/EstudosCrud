@@ -65,16 +65,16 @@ export const CardsCampanha = () => {
                 </h3>
                 <span
                   className={
-                    camp.Fl_Ativo === 'Ativo'
+                    camp.Status === 'Ativo'
                       ? 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-green-100 text-green-800'
                       : 'inline-flex items-center px-2.5 py-0.5 rounded-md text-sm font-medium bg-red-100 text-red-800'
                   }
                 >
-                  {camp.Fl_Ativo}
+                  {camp.Status}
                 </span>
               </div>
             </div>
-            {camp.DT_Criacao}
+            {/* {camp.DT_Criacao} */}
           </div>
           <div>
             <div className="-mt-px flex divide-x divide-gray-200">

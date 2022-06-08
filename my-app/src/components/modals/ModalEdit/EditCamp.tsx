@@ -3,7 +3,6 @@ import { ChangeEvent } from 'react'
 import axios from 'axios'
 import { useForm, Controller } from 'react-hook-form'
 import { useForm2, FormActions } from '../../../contexts/FormContext'
-import { TableClient } from '../../TableClient'
 
 function refreshPage() {
   window.location.reload()
@@ -25,7 +24,7 @@ export const ModalEditCamp = (id: any) => {
       })
   }
 
-  const handleGroupChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleCampChange = (e: ChangeEvent<HTMLInputElement>) => {
     dispatch({
       type: FormActions.setClassificação,
       payload: e.target.value
@@ -51,18 +50,34 @@ export const ModalEditCamp = (id: any) => {
             htmlFor="name"
             className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
           >
-            Nomw do Grupo
+            Nome da Campanha
           </label>
           <input
             type="text"
-            id="classificacao"
+            id="campanha"
             className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
             {...register('DS_Grupo')}
-            onChange={handleGroupChange}
+            onChange={handleCampChange}
             placeholder=""
           />
         </div>
-        <TableClient />
+        <div className="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 modal_content">
+          <label
+            htmlFor="name"
+            className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
+          >
+            Data alteração
+          </label>
+          <input
+            type="datetime-local"
+            id="data"
+            className="block w-full border-0 p-0 text-gray-900 placeholder-gray-500 focus:ring-0 sm:text-sm"
+            {...register('DT_Alteracao')}
+            onChange={handleCampChange}
+            placeholder=""
+          />
+        </div>
+
         <button
           type="submit"
           className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-[#9a8e74] hover:bg-[#b5aa92] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"

@@ -51,7 +51,7 @@ export const ModalEditGroup = (id: any) => {
             htmlFor="name"
             className="absolute -top-2 left-2 -mt-px inline-block px-1 bg-white text-xs font-medium text-gray-900"
           >
-            Nomw do Grupo
+            Nome do Grupo
           </label>
           <input
             type="text"
