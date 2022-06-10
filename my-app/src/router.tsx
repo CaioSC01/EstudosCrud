@@ -6,6 +6,7 @@ import { Topnav } from './components/Topnav'
 import { Campanha } from './page/Campanha'
 import { ClassificCli } from './page/ClassifcCli'
 import { GroupCli } from './page/GroupCli'
+import Edit from './page/Edit'
 
 const Router = () => {
   return (
@@ -17,6 +18,7 @@ const Router = () => {
         <Route path="/classific" element={<ClassificCli />} />
         <Route path="/group" element={<GroupCli />} />
         <Route path="/campanha" element={<Campanha />} />
+        <Route path="/edit" element={<Edit />} />
       </Routes>
     </BrowserRouter>
   )

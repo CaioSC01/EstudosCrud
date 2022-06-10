@@ -3,6 +3,7 @@ import axios from 'axios'
 import { TrashIcon, PencilIcon } from '@heroicons/react/outline'
 import { ModalEdit } from './modals/ModalEdit/EditClassific'
 import { Modal } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 
 function refreshPage() {
   window.location.reload()
@@ -29,16 +30,37 @@ export const TableClassi = () => {
       })
   }, [])
 
+  //   async deletePost(postId) {
+
+  //     if (!window.confirm("Deseja realmente excluir este post?")) return;
+
+  //     try {
+  //         await postsService.delete(postId)
+  //         alert("Post excluído com sucesso")
+  //         this.props.history.replace('/post-list')
+  //     } catch (error) {
+  //         console.log(error);
+  //         alert("Não foi excluir o post.")
+  //     }
+
+  // }
+
   const deleteForm = (
     id: any,
     e: React.MouseEvent<HTMLButtonElement, MouseEvent>
   ) => {
     e.preventDefault()
-    axios
-      .delete(`https://localhost:44328/api/classific/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
+
+    if (!window.confirm('Deseja realmente excluir este post?')) return
+
+    try {
+      axios.delete(`https://localhost:44328/api/classific/${id}`)
+      alert('Post excluído com sucesso')
+      refreshPage()
+    } catch (error) {
+      console.log(error)
+      alert('Não foi excluir o post.')
+    }
   }
 
   const EditForm = (
@@ -121,85 +143,31 @@ export const TableClassi = () => {
 
                           <td className="content_td">
                             <button
-                              onClick={e => EditForm(classific.ID, e)}
+                              // onClick={e => EditForm(classific.ID, e)}
                               className="text-gray-400 hover:text-gray-100  mx-2"
                             >
                               <span className="sr-only">Close panel</span>
                               <PencilIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
-                                onClick={handleShowE}
                               />
                             </button>
 
-                            <button className="text-gray-400 hover:text-gray-100  ml-2">
+                            <button
+                              onClick={e => deleteForm(classific.ID, e)}
+                              className="text-gray-400 hover:text-gray-100  ml-2"
+                            >
                               <span className="sr-only">Close panel</span>
                               <TrashIcon
                                 className="h-6 w-6"
                                 aria-hidden="true"
-                                onClick={handleShowD}
+
                                 // values={classific.DS_Classificacao}
                               />
                             </button>
                           </td>
                         </tr>
                       </tbody>
-                      <Modal
-                        show={showD}
-                        onHide={handleCloseD}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header>
-                          <Modal.Title>
-                            Deletar <b>{classific.DS_Classificacao}</b>
-                          </Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          Tem certeza que deseja deletar
-                          <b> {classific.DS_Classificacao}</b> ? Essa ação é
-                          irreversivel.
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <button
-                            type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            onClick={handleCloseD}
-                          >
-                            Cancelar
-                          </button>
-
-                          <button
-                            type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                            onClick={e => deleteForm(classific.ID, e)}
-                          >
-                            Deletar
-                          </button>
-                        </Modal.Footer>
-                      </Modal>
-                      <Modal
-                        show={showE}
-                        onHide={handleCloseE}
-                        backdrop="static"
-                        keyboard={false}
-                      >
-                        <Modal.Header>
-                          <Modal.Title>Editar Classificação</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                          <ModalEdit id={classific.ID}></ModalEdit>
-                        </Modal.Body>
-                        <Modal.Footer>
-                          <button
-                            type="button"
-                            className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                            onClick={handleCloseE}
-                          >
-                            Cancelar
-                          </button>
-                        </Modal.Footer>
-                      </Modal>
                     </React.Fragment>
                   )
                 })}

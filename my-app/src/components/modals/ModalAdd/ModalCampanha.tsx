@@ -27,18 +27,6 @@ export const ModalCampanha = () => {
   return (
     <>
       <form onSubmit={handleSubmit(addForm)}>
-        <Controller
-          render={({ field }) => (
-            <select {...field} className="active_content">
-              <option>Status</option>
-              <option value={'true'}>Ativo</option>
-              <option value={'false'}>Inativo</option>
-            </select>
-          )}
-          control={control}
-          name="Status"
-        />
-
         <div className="relative border border-gray-300 rounded-md px-3 py-2 shadow-sm focus-within:ring-1 focus-within:ring-indigo-600 focus-within:border-indigo-600 modal_content">
           <label
             htmlFor="name"

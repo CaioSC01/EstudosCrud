@@ -35,11 +35,16 @@ export const CardsCampanha = () => {
   ) => {
     e.preventDefault()
 
-    axios
-      .delete(`https://localhost:44328/api/campanha/${id}`)
-      .then(res => console.log('Deleted!!!', res))
-      .catch(err => console.log(err))
-    refreshPage()
+    if (!window.confirm('Deseja realmente excluir este post?')) return
+
+    try {
+      axios.delete(`https://localhost:44328/api/campanha/${id}`)
+      alert('Post excluído com sucesso')
+      refreshPage()
+    } catch (error) {
+      console.log(error)
+      alert('Não foi excluir o post.')
+    }
   }
 
   const EditForm = (
@@ -101,69 +106,18 @@ export const CardsCampanha = () => {
               </div>
 
               <div className="-ml-px w-0 flex-1 flex">
-                <button className="text-gray-400 hover:text-gray-100 px-10 ml-2">
+                <button
+                  onClick={e => deleteForm(camp.ID, e)}
+                  className="text-gray-400 hover:text-gray-100  ml-2"
+                >
                   <span className="sr-only">Close panel</span>
                   <TrashIcon
                     className="h-6 w-6"
                     aria-hidden="true"
-                    onClick={handleShowD}
+
+                    // values={classific.DS_Classificacao}
                   />
                 </button>
-                <Modal
-                  show={showD}
-                  onHide={handleCloseD}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header closeButton>
-                    <Modal.Title>
-                      Deletar <b>{camp.Nome}</b>
-                    </Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    Tem certeza que deseja deletar
-                    <b> {camp.Nome}</b> ? Essa ação é irreversivel.
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleCloseD}
-                    >
-                      Cancelar
-                    </button>
-
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-gray-300 shadow-sm text-xs font-medium rounded text-red-700 bg-red hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500"
-                      onClick={e => deleteForm(camp.ID, e)}
-                    >
-                      Deletar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
-                <Modal
-                  show={showE}
-                  onHide={handleCloseE}
-                  backdrop="static"
-                  keyboard={false}
-                >
-                  <Modal.Header>
-                    <Modal.Title>Editar Campanha</Modal.Title>
-                  </Modal.Header>
-                  <Modal.Body>
-                    <ModalEditCamp id={camp.ID}></ModalEditCamp>
-                  </Modal.Body>
-                  <Modal.Footer>
-                    <button
-                      type="button"
-                      className="inline-flex items-center px-2.5 py-1.5 border border-transparent text-xs font-medium rounded shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                      onClick={handleCloseE}
-                    >
-                      Cancelar
-                    </button>
-                  </Modal.Footer>
-                </Modal>
               </div>
             </div>
           </div>
